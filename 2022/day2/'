@@ -1,0 +1,55 @@
+
+correspondingMap = {
+    'A': 'ROCK',
+    'B': 'PAPER',
+    'C': 'SCISSORS',
+    'X': 'ROCK',
+    'Y': 'PAPER',
+    'Z': 'SCISSORS',
+    'ROCK': 1,
+    'PAPER': 2,
+    'SCISSORS': 3
+}
+
+LOSING_SCORE = 0
+DRAWING_SCORE = 3
+WINNING_SCORE = 6
+
+def calculateWinner(opMove, myMove):
+    if(opMove == myMove):
+        return DRAWING_SCORE
+
+    if(opMove == 'ROCK' and myMove == 'PAPER'):
+        return WINNING_SCORE
+
+    if(opMove == 'ROCK' and myMove == 'SCISSORS'):
+        return LOSING_SCORE
+
+    if(opMove == 'PAPER' and myMove == 'SCISSORS'):
+        return WINNING_SCORE
+
+    if(opMove == 'PAPER' and myMove == 'ROCK'):
+        return LOSING_SCORE
+
+    if(opMove == 'SCISSORS' and myMove == 'ROCK'):
+        return WINNING_SCORE
+
+    if(opMove == 'SCISSORS' and myMove == 'PAPER'):
+        return LOSING_SCORE
+
+
+
+def calculateScore(op, me):
+    moveOfOp = correspondingMap[op]
+    moveOfMe = correspondingMap[me]
+    return correspondingMap[moveOfMe] + calculateWinner(moveOfOp, moveOfMe)
+
+
+
+with open('testInput.txt', 'r') as file:
+    for line in file:
+        inputString = line.strip()
+        inputs = inputString.split(' ')
+        print(inputs)
+    
+

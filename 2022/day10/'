@@ -1,0 +1,36 @@
+f = open('test.txt', 'r')
+instructions = f.read().split('\n')
+f.close()
+
+class Tube():
+
+    def __init__(self):
+        self.cycle = 1
+        self.value = 1
+        self.tasks = dict()
+
+    def completeCycle(self):
+        if(self.cycle in self.tasks):
+            self.value += self.tasks[self.cycle]
+        self.cycle += 1
+
+    def addTask(self, amount):
+        self.tasks.append(0)
+        self.tasks.append(amount)
+
+tube = Tube()
+result = 0
+for line in instructions:
+    instruction = line.split(' ') 
+    if(instruction[0] == 'addx'):
+        tube.addTask(int(instruction[1]))
+
+    tube.completeCycle()
+
+    cycle = tube.cycle
+    if(cycle == 20 or (cycle-20) % 40 == 0):
+        print(cycle, tube.value)
+        result += cycle * tube.value
+
+
+print(result)
