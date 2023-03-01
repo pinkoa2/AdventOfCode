@@ -1,4 +1,4 @@
-fileName = 'simple.txt'
+fileName = 'input.txt'
 
 
 class Blizzard:
@@ -14,7 +14,7 @@ class Blizzard:
         rows.pop(-1)
         for y in range(len(rows)):
             for x in range(len(rows[y])):
-                symbol = rows[x][y]
+                symbol = rows[y][x]
                 if (symbol not in ['>', '<', 'v', '^', '#']):
                     continue
                 self.grid[(x, y)] = [symbol]
@@ -44,7 +44,7 @@ class Blizzard:
         y = pos[1]
         if (symbol == '<'):
             if (x == self.minX+1):
-                return (self.maxX-1, y)
+                return (self.maxX-2, y)
             return (x - 1, y)
         if (symbol == '>'):
             if (x == self.maxX-2):
@@ -56,12 +56,11 @@ class Blizzard:
             return (x, y+1)
         if (symbol == '^'):
             if (y == self.minY+1):
-                return (x, self.maxY-1)
+                return (x, self.maxY-2)
             return (x, y-1)
         return (x, y)
 
     def move(self):
-        print(self.maxY)
         newGrid = {}
         for y in range(self.minY, self.maxY):
             for x in range(self.minX, self.maxX):
@@ -75,10 +74,64 @@ class Blizzard:
                         newGrid[nextPos].append(symbol)
         self.grid = newGrid
 
+    def getBlizzardPos(self):
+        positions = set()
+        for y in range(self.minY, self.maxY):
+            for x in range(self.minX, self.maxX):
+                pos = (x, y)
+                if (pos not in self.grid):
+                    continue
+                for symbol in self.grid[pos]:
+                    if (symbol in ['>', '<', 'v', '^', '#']):
+                        positions.add(pos)
+        return positions
+
+
+def getNextPositions(blizzard, pos):
+    x = pos[0]
+    y = pos[1]
+    setOfPositions = set([
+        (x, y),
+        (x-1, y),
+        (x+1, y),
+        (x, y+1),
+        (x, y-1)
+    ])
+    # return setOfPositions
+    return removeOutOfBound(blizzard, setOfPositions)
+
+
+def removeOutOfBound(blizzard, positions):
+    positionsToRemove = set()
+    maxX = blizzard.maxX
+    maxY = blizzard.maxY
+    for pos in positions:
+        x = pos[0]
+        y = pos[1]
+        if (x < 0 or x > maxX):
+            positionsToRemove.add(pos)
+        if (y < 0 or y > maxY):
+            positionsToRemove.add(pos)
+    return positions.difference(positionsToRemove)
+
 
 blizzard = Blizzard(fileName)
-print(str(blizzard))
-blizzard.move()
-print(str(blizzard))
-blizzard.move()
-print(str(blizzard))
+STARTING = (1, 0)
+ENDING = (blizzard.maxX-2, blizzard.maxY-1)
+
+setOfPeople = set([STARTING])
+roundNumber = 0
+while (ENDING not in setOfPeople):
+    nextSetOfPeople = set()
+    for person in setOfPeople:
+        surround = getNextPositions(blizzard, person)
+        nextSetOfPeople = nextSetOfPeople.union(surround)
+    nextSetOfPeople = nextSetOfPeople.difference(blizzard.getBlizzardPos())
+    roundNumber += 1
+    setOfPeople = nextSetOfPeople
+    print(roundNumber)
+    blizzard.move()
+
+print(roundNumber-1)
+print(len(setOfPeople))
+removeOutOfBounds = removeOutOfBound(blizzard, setOfPeople)
