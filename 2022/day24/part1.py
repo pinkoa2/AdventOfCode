@@ -132,6 +132,36 @@ while (ENDING not in setOfPeople):
     print(roundNumber)
     blizzard.move()
 
+STARTING = (blizzard.maxX-2, blizzard.maxY-1)
+ENDING = (1, 0)
+
+setOfPeople = set([STARTING])
+while (ENDING not in setOfPeople):
+    nextSetOfPeople = set()
+    for person in setOfPeople:
+        surround = getNextPositions(blizzard, person)
+        nextSetOfPeople = nextSetOfPeople.union(surround)
+    nextSetOfPeople = nextSetOfPeople.difference(blizzard.getBlizzardPos())
+    roundNumber += 1
+    setOfPeople = nextSetOfPeople
+    print(roundNumber)
+    blizzard.move()
+
+STARTING = (1, 0)
+ENDING = (blizzard.maxX-2, blizzard.maxY-1)
+
+setOfPeople = set([STARTING])
+while (ENDING not in setOfPeople):
+    nextSetOfPeople = set()
+    for person in setOfPeople:
+        surround = getNextPositions(blizzard, person)
+        nextSetOfPeople = nextSetOfPeople.union(surround)
+    nextSetOfPeople = nextSetOfPeople.difference(blizzard.getBlizzardPos())
+    roundNumber += 1
+    setOfPeople = nextSetOfPeople
+    print(roundNumber)
+    blizzard.move()
+
 print(roundNumber-1)
 print(len(setOfPeople))
 removeOutOfBounds = removeOutOfBound(blizzard, setOfPeople)
