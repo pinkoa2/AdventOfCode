@@ -1,18 +1,15 @@
-file = open('test.txt', 'r')
+file = open('input.txt', 'r')
 lines = file.read().split('\n')
 lines.pop(-1)
 file.close()
 
-
 class Valve():
-
     def __init__(self, name, flow, tunnels):
         self.name = name
         self.flow = flow
         self.tunnels = tunnels
 
 allValves = {}
-nonZeroValves = set()
 
 for line in lines:
     name = line[ line.index(' ') + 1 : line.index('h') - 1 ]
@@ -20,36 +17,36 @@ for line in lines:
     valveIndex = line.index('valve')
     tunnels = line[ line.index(' ', valveIndex)+1 :].split(', ')
     allValves[name] = Valve(name, rate, tunnels)
-    if(rate != 0):
-        nonZeroValves.add(name)
 
+states = {}
+def findMaxFlow(valve, depth, opened):
+    if(depth <= 0):
+        return 0
 
-MAX_DEPTH = 30 
-def findMaxFlow(valve, depth, currentValue, cumulativeValue, opened):
-    if(depth >= MAX_DEPTH+1):
-        return cumulativeValue 
-    if(len(nonZeroValves.difference(opened)) == 0):
-        return cumulativeValue
+    newDepth = depth - 1
+    opened.sort()
+    key = (valve.name, depth, str(opened))
+    if(key in states):
+        return states[key]
 
     results = []
     # Choose to open
     if(valve.name not in opened and valve.flow != 0): # you cannot open so must skip this whole condition
         newOpened = opened.copy()
-        newOpened.add(valve.name)
-        newDepth = depth + 2
-        newCurrentValue = currentValue + valve.flow
-        newCumulativeValue = cumulativeValue + newCurrentValue
-        results.append( findMaxFlow(valve, newDepth, newCurrentValue, newCumulativeValue, newOpened) )
+        newOpened.append(valve.name)
+        results.append( valve.flow*newDepth + findMaxFlow(valve, newDepth, newOpened) )
         
     # Choose to move to next
     for newValveName in valve.tunnels:
+        newOpened = opened.copy()
         newValve = allValves[newValveName]
-        newDepth = depth + 1
-        newCumulativeValue = cumulativeValue + currentValue
-        results.append(findMaxFlow(newValve, newDepth, currentValue, newCumulativeValue, opened))
+        results.append(findMaxFlow(newValve, newDepth, newOpened))
 
-    return max(results) 
+    ans = max(results)
+    states[key] = ans
 
-result = findMaxFlow(allValves['AA'], 1, 0, 0, set())
+    return ans
+
+result = findMaxFlow(allValves['AA'], 30, [])
 print(result)
 
