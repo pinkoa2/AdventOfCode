@@ -1,17 +1,17 @@
-
 def addElfToTopThree(topThree, newElf):
     position = 0
     for elf in topThree:
-        if(newElf.getCalories() > elf.getCalories()):
+        if newElf.getCalories() > elf.getCalories():
             break
         position += 1
     topThree.insert(position, newElf)
-    if(len(topThree) > 3):
+    if len(topThree) > 3:
         topThree.pop(-1)
+
 
 class Elf:
     def __init__(self, name):
-        self.calories=0
+        self.calories = 0
         self.name = name
 
     def addCalories(self, calories):
@@ -20,22 +20,22 @@ class Elf:
     def getCalories(self):
         return self.calories
 
-f = open('input.txt', 'r')
+
+f = open("input.txt", "r")
 
 
 elfNum = 1
 elf = Elf(elfNum)
 
 topThree = []
-
 for line in f:
-    if(line == '\n'):
+    if line == "\n":
         addElfToTopThree(topThree, elf)
         elfNum += 1
         elf = Elf(elfNum)
         next
     num = line.strip()
-    if(num.isnumeric()):
+    if num.isnumeric():
         elf.addCalories(int(line.strip()))
 
 print(topThree[0].getCalories())
