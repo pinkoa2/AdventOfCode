@@ -1,4 +1,4 @@
-use crate::util::*;
+use aoc2020::util::*;
 use std::cmp;
 
 fn solve_sequence(s: &str) -> usize {
@@ -61,7 +61,7 @@ fn part2(filetype: FileType) -> usize {
     ((n / 2.0) * (2.0 * min as f32 + (n - 1.0)) - result as f32) as usize
 }
 
-pub fn run() {
+pub fn main() {
     println!("Solution to part1: {}", part1(FileType::Input));
     println!("Solution to part1: {}", part2(FileType::Input));
 }

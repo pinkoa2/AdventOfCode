@@ -1,4 +1,4 @@
-use crate::util::*;
+use aoc2020::util::*;
 use std::collections::HashSet;
 
 fn part1(filetype: FileType) -> usize {
@@ -28,7 +28,7 @@ fn part2(filetype: FileType) -> usize {
     for group in groups {
         let mut hashset: HashSet<char> = (b'a'..b'{').map(|c| c as char).collect();
         for people in group.split("\n") {
-            let inner_hashset: HashSet<char> = HashSet::<char>::from_iter( people.chars() );
+            let inner_hashset: HashSet<char> = HashSet::<char>::from_iter(people.chars());
             hashset = hashset.intersection(&inner_hashset).cloned().collect();
         }
         result += hashset.len();
@@ -36,7 +36,7 @@ fn part2(filetype: FileType) -> usize {
     result
 }
 
-pub fn run() {
+pub fn main() {
     println!("Solution to part1: {}", part1(FileType::Input));
     println!("Solution to part2: {}", part2(FileType::Input));
 }
