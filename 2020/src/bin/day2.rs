@@ -1,4 +1,4 @@
-use crate::util::*;
+use aoc2020::util::*;
 use std::ops::RangeInclusive;
 
 /*
@@ -97,7 +97,7 @@ fn part2(filetype: FileType) -> i32 {
     return result;
 }
 
-pub fn run() {
+pub fn main() {
     println!("Solution to part1: {}", part1(FileType::Input));
     println!("Solution to part2: {}", part2(FileType::Input));
 }

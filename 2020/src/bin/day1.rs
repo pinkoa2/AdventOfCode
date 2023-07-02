@@ -1,7 +1,7 @@
-use crate::util;
+use aoc2020::util::*;
 
-fn part1(filetype: util::FileType) -> i32 {
-    let input: String = util::read_file(String::from("day1"), filetype);
+fn part1(filetype: FileType) -> i32 {
+    let input: String = read_file(String::from("day1"), filetype);
     let split_string: Vec<&str> = input.split("\n").collect();
 
     for value in &split_string {
@@ -13,8 +13,8 @@ fn part1(filetype: util::FileType) -> i32 {
     return 0;
 }
 
-fn part2(filetype: util::FileType) -> i32 {
-    let input: String = util::read_file(String::from("day1"), filetype);
+fn part2(filetype: FileType) -> i32 {
+    let input: String = read_file(String::from("day1"), filetype);
     let split_string: Vec<&str> = input.split("\n").collect();
     for value1 in &split_string {
         for value2 in &split_string {
@@ -31,18 +31,18 @@ fn part2(filetype: util::FileType) -> i32 {
     return 1;
 }
 
-pub fn run() {
-    println!("Solution part1: {}", part1(util::FileType::Input));
-    println!("Solution part2: {}", part2(util::FileType::Input));
+pub fn main() {
+    println!("Solution part1: {}", part1(FileType::Input));
+    println!("Solution part2: {}", part2(FileType::Input));
 }
 
 #[test]
 fn test_part_1() {
-    let result = part1(util::FileType::Test);
+    let result = part1(FileType::Test);
     assert_eq!(result, 514579);
 }
 #[test]
 fn test_part_2() {
-    let result = part2(util::FileType::Test);
+    let result = part2(FileType::Test);
     assert_eq!(result, 241861950)
 }
