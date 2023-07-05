@@ -1,14 +1,6 @@
 use aoc2020::util::*;
 use std::ops::RangeInclusive;
 
-/*
-
-1-3 a: abcde
-1-3 b: cdefg
-2-9 c: ccccccccc
-
-*/
-
 struct Password {
     range: RangeInclusive<i32>,
     key: char,
