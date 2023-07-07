@@ -8,7 +8,7 @@ use std::rc::Rc;
 struct Node {
     name: String,
     parent: Vec<Rc<RefCell<Node>>>,
-    children: Vec<Rc<RefCell<Node>>>,
+    children: Vec<(usize, Rc<RefCell<Node>>)>,
 }
 
 impl Node {
@@ -24,8 +24,8 @@ impl Node {
         self.parent.push(parent);
     }
 
-    fn attach_child(&mut self, child: Rc<RefCell<Node>>) {
-        self.children.push(child)
+    fn attach_child(&mut self, amount: usize, child: Rc<RefCell<Node>>) {
+        self.children.push( (amount, child) )
     }
 }
 
@@ -72,14 +72,13 @@ fn part1(filetype: FileType) -> i32 {
     for line in &all_lines {
         let bag = parse_line(line);
         let parent_name = bag.parent;
-        // println!("{parent_name}");
         let parent = name_to_node.get(&parent_name).unwrap().clone();
         for child_bag in bag.children {
             let child_name = child_bag.1;
-            // println!("{child_name}");
+            let child_amount = child_bag.0;
             let child = name_to_node.get(&child_name).unwrap().clone();
             child.borrow_mut().attach_parent(Rc::clone(&parent));
-            parent.borrow_mut().attach_child(child);
+            parent.borrow_mut().attach_child(child_amount, child);
         }
     }
 
@@ -107,12 +106,61 @@ fn part1(filetype: FileType) -> i32 {
     result.len() as i32
 }
 
+fn recursive_part2(node: Rc<RefCell<Node>>) -> usize {
+    let children: Vec<(usize, Rc<RefCell<Node>>)> = node.borrow_mut().children.clone();
+    let mut amount: usize = 0;
+    if children.len() == 0 {
+        return amount
+    }
+    for child in children {
+        let child_amount: usize = child.0;
+        amount += child_amount + child_amount * recursive_part2(child.1.clone());
+    }
+    return amount;
+
+}
+
+fn part2(filetype: FileType) -> usize {
+    let input: String = read_file(String::from("day7"), filetype);
+    let all_lines: Vec<&str> = input.split("\n").collect();
+
+    // Create the nodes. Use the parents names for now
+    let mut name_to_node: HashMap<String, Rc<RefCell<Node>>> = HashMap::new();
+
+    for line in &all_lines {
+        let bag = parse_line(line);
+        let parent = bag.parent;
+        let node = Node::new(parent.clone());
+        name_to_node.insert(parent.clone(), node);
+    }
+
+    for line in &all_lines {
+        let bag = parse_line(line);
+        let parent_name = bag.parent;
+        let parent = name_to_node.get(&parent_name).unwrap().clone();
+        for child_bag in bag.children {
+            let child_name = child_bag.1;
+            let child_amount = child_bag.0;
+            let child = name_to_node.get(&child_name).unwrap().clone();
+            child.borrow_mut().attach_parent(Rc::clone(&parent));
+            parent.borrow_mut().attach_child(child_amount, child);
+        }
+    }
+
+    return recursive_part2(name_to_node.get("shiny gold").unwrap().clone());
+}
 fn main() {
     println!("Solution to part1: {}", part1(FileType::Input));
+    println!("Solution to part2: {}", part2(FileType::Input));
 }
 
 #[test]
 fn test_part_1() {
     let result = part1(FileType::Test);
     assert_eq!(result, 4);
+}
+#[test]
+fn test_part_2() {
+    let result = part2(FileType::Test);
+    assert_eq!(result, 32);
 }
