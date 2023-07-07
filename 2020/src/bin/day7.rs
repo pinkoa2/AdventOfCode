@@ -25,7 +25,7 @@ impl Node {
     }
 
     fn attach_child(&mut self, amount: usize, child: Rc<RefCell<Node>>) {
-        self.children.push( (amount, child) )
+        self.children.push((amount, child))
     }
 }
 
@@ -110,14 +110,13 @@ fn recursive_part2(node: Rc<RefCell<Node>>) -> usize {
     let children: Vec<(usize, Rc<RefCell<Node>>)> = node.borrow_mut().children.clone();
     let mut amount: usize = 0;
     if children.len() == 0 {
-        return amount
+        return amount;
     }
     for child in children {
         let child_amount: usize = child.0;
         amount += child_amount + child_amount * recursive_part2(child.1.clone());
     }
     return amount;
-
 }
 
 fn part2(filetype: FileType) -> usize {
