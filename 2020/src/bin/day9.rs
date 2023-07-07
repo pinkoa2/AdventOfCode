@@ -55,7 +55,9 @@ fn part2(filetype: FileType, preamble: usize) -> u128 {
             let sum_over_range: u128 = sequence[starting..=ending].iter().sum();
 
             if sum_over_range == value {
-                return sequence[starting] + sequence[ending - 1];
+                let minimum = sequence[starting..=ending].iter().min().unwrap();
+                let maxiimum = sequence[starting..=ending].iter().max().unwrap();
+                return minimum + maxiimum;
             }
 
             if sum_over_range > value {
@@ -84,5 +86,5 @@ fn test_part_2() {
     let test = part2(FileType::Test, 5);
     assert_eq!(test, 62);
     let input = part2(FileType::Input, 25);
-    assert_eq!(input, 44522522);
+    assert_eq!(input, 59341885);
 }
