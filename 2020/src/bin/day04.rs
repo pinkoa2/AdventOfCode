@@ -188,7 +188,7 @@ impl Passport {
 }
 
 fn part1(filetype: FileType) -> usize {
-    let input: String = read_file(String::from("day4"), filetype);
+    let input: String = read_file(String::from("day04"), filetype);
     let passports: Vec<&str> = input.split("\n\n").collect();
 
     let mut result: usize = 0;
@@ -203,7 +203,7 @@ fn part1(filetype: FileType) -> usize {
 }
 
 fn part2(filetype: FileType) -> usize {
-    let input: String = read_file(String::from("day4"), filetype);
+    let input: String = read_file(String::from("day04"), filetype);
     let passports: Vec<&str> = input.split("\n\n").collect();
 
     let mut result: usize = 0;

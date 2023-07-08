@@ -2,7 +2,7 @@ use aoc2020::util::*;
 use std::collections::HashSet;
 
 fn part1(filetype: FileType) -> usize {
-    let input: String = read_file(String::from("day6"), filetype);
+    let input: String = read_file(String::from("day06"), filetype);
 
     let groups = input.split("\n\n");
 
@@ -20,7 +20,7 @@ fn part1(filetype: FileType) -> usize {
 }
 
 fn part2(filetype: FileType) -> usize {
-    let input: String = read_file(String::from("day6"), filetype);
+    let input: String = read_file(String::from("day06"), filetype);
 
     let groups = input.split("\n\n").collect::<Vec<&str>>();
 

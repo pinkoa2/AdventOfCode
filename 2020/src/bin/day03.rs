@@ -57,13 +57,13 @@ impl Grid {
 }
 
 fn part1(filetype: FileType) -> i32 {
-    let input: String = read_file(String::from("day3"), filetype);
+    let input: String = read_file(String::from("day03"), filetype);
     let grid = Grid::parse(input);
     return grid.traverse(3, 1);
 }
 
 fn part2(filetype: FileType) -> usize {
-    let input: String = read_file(String::from("day3"), filetype);
+    let input: String = read_file(String::from("day03"), filetype);
     let grid = Grid::parse(input);
 
     let positions = vec![(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)];

@@ -2,7 +2,7 @@ use aoc2020::util::{read_file, FileType};
 use std::collections::HashSet;
 
 fn part1(filetype: FileType, preamble: usize) -> u128 {
-    let input = read_file(String::from("day9"), filetype);
+    let input = read_file(String::from("day09"), filetype);
     let splitted: Vec<&str> = input.split("\n").collect();
 
     let sequence: Vec<u128> = splitted
@@ -39,7 +39,7 @@ fn part2(filetype: FileType, preamble: usize) -> u128 {
     };
 
     let value = part1(copy, preamble);
-    let input = read_file(String::from("day9"), filetype);
+    let input = read_file(String::from("day09"), filetype);
 
     let splitted: Vec<&str> = input.split("\n").collect();
     let sequence: Vec<u128> = splitted

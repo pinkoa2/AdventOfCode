@@ -1,7 +1,7 @@
 use aoc2020::util::*;
 
 fn part1(filetype: FileType) -> i32 {
-    let input: String = read_file(String::from("day1"), filetype);
+    let input: String = read_file(String::from("day01"), filetype);
     let split_string: Vec<&str> = input.split("\n").collect();
 
     for value in &split_string {
@@ -14,7 +14,7 @@ fn part1(filetype: FileType) -> i32 {
 }
 
 fn part2(filetype: FileType) -> i32 {
-    let input: String = read_file(String::from("day1"), filetype);
+    let input: String = read_file(String::from("day01"), filetype);
     let split_string: Vec<&str> = input.split("\n").collect();
     for value1 in &split_string {
         for value2 in &split_string {

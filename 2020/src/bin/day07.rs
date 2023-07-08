@@ -25,7 +25,7 @@ impl Node {
     }
 
     fn attach_child(&mut self, amount: usize, child: Rc<RefCell<Node>>) {
-        self.children.push((amount, child))
+        self.children.push( (amount, child) )
     }
 }
 
@@ -56,7 +56,7 @@ fn parse_line(line: &str) -> Bag {
 }
 
 fn part1(filetype: FileType) -> i32 {
-    let input: String = read_file(String::from("day7"), filetype);
+    let input: String = read_file(String::from("day07"), filetype);
     let all_lines: Vec<&str> = input.split("\n").collect();
 
     // Create the nodes. Use the parents names for now
@@ -110,17 +110,18 @@ fn recursive_part2(node: Rc<RefCell<Node>>) -> usize {
     let children: Vec<(usize, Rc<RefCell<Node>>)> = node.borrow_mut().children.clone();
     let mut amount: usize = 0;
     if children.len() == 0 {
-        return amount;
+        return amount
     }
     for child in children {
         let child_amount: usize = child.0;
         amount += child_amount + child_amount * recursive_part2(child.1.clone());
     }
     return amount;
+
 }
 
 fn part2(filetype: FileType) -> usize {
-    let input: String = read_file(String::from("day7"), filetype);
+    let input: String = read_file(String::from("day07"), filetype);
     let all_lines: Vec<&str> = input.split("\n").collect();
 
     // Create the nodes. Use the parents names for now

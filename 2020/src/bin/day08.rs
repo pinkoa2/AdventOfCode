@@ -98,7 +98,7 @@ impl<'a> Machine<'a> {
 }
 
 fn part1(filetype: FileType) -> isize {
-    let input: String = read_file(String::from("day8"), filetype);
+    let input: String = read_file(String::from("day08"), filetype);
     let lines: Vec<&str> = input.split("\n").collect();
 
     let instructions: Vec<Instruction> = lines
@@ -115,7 +115,7 @@ fn part1(filetype: FileType) -> isize {
 }
 
 fn part2(filetype: FileType) -> isize {
-    let input: String = read_file(String::from("day8"), filetype);
+    let input: String = read_file(String::from("day08"), filetype);
     let lines: Vec<&str> = input.split("\n").collect();
 
     let mut instructions: Vec<Instruction> = lines
@@ -142,6 +142,7 @@ fn part2(filetype: FileType) -> isize {
         instructions.insert(index, original_instruction);
     }
     panic!("Should never reach here");
+
 }
 
 fn main() {

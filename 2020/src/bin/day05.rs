@@ -33,7 +33,7 @@ fn solve_sequence(s: &str) -> usize {
 }
 
 fn part1(filetype: FileType) -> usize {
-    let input: String = read_file(String::from("day5"), filetype);
+    let input: String = read_file(String::from("day05"), filetype);
     let lines: Vec<&str> = input.split('\n').collect();
 
     let mut result = 0;
@@ -44,7 +44,7 @@ fn part1(filetype: FileType) -> usize {
 }
 
 fn part2(filetype: FileType) -> usize {
-    let input: String = read_file(String::from("day5"), filetype);
+    let input: String = read_file(String::from("day05"), filetype);
     let lines: Vec<&str> = input.split('\n').collect();
 
     let mut result = 0;

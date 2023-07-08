@@ -60,7 +60,7 @@ impl Password {
 }
 
 fn part1(filetype: FileType) -> i32 {
-    let input: String = read_file(String::from("day2"), filetype);
+    let input: String = read_file(String::from("day02"), filetype);
     let split_string: Vec<&str> = input.split("\n").collect();
 
     let mut result = 0;
@@ -75,7 +75,7 @@ fn part1(filetype: FileType) -> i32 {
 }
 
 fn part2(filetype: FileType) -> i32 {
-    let input: String = read_file(String::from("day2"), filetype);
+    let input: String = read_file(String::from("day02"), filetype);
     let split_string: Vec<&str> = input.split("\n").collect();
 
     let mut result = 0;
