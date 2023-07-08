@@ -142,7 +142,6 @@ fn part2(filetype: FileType) -> isize {
         instructions.insert(index, original_instruction);
     }
     panic!("Should never reach here");
-
 }
 
 fn main() {
